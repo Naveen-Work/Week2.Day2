@@ -1,1 +1,40 @@
 
+package week2.day2;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class FaceBook {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		WebDriverManager.chromedriver().setup();
+		ChromeDriver driver=new ChromeDriver();		
+		driver.get("https://en-gb.facebook.com/");
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+		driver.findElement(By.xpath("(//a[@role='button'])[2]")).click();
+		driver.findElement(By.xpath("//input[@name='firstname']")).sendKeys("AAAA");
+		driver.findElement(By.xpath("//input[@name='lastname']")).sendKeys("BBBBB");
+		driver.findElement(By.xpath("(//div[contains(text(),'Mobile number')]//following::input)[1]")).sendKeys("9989791340");
+		Select day=new Select(driver.findElement(By.xpath("//select[@id='day']")));
+		day.selectByIndex(1);	
+		Select month=new Select(driver.findElement(By.xpath("//select[@id='month']")));
+		month.selectByVisibleText("Sep");		
+		Select year=new Select(driver.findElement(By.xpath("//select[@id='year']")));
+		//System.out.println(year.getFirstSelectedOption().getText());
+		year.selectByValue("1990");
+		WebElement radio = driver.findElement(By.xpath("(//label[contains(text(),'Female')]//following::input)[1]"));
+		if(radio.isSelected()==false) {
+		radio.click();
+		}
+		
+	}
+
+}
